@@ -1,1 +1,180 @@
+-------------------------HTML-------------------------
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
 
+<html lang="en">
+<head>
+  <link rel="stylesheet" type="text/css" href="style.css" />
+  <script src="main_v2.js"></script>
+<title>CSS Website Layout</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+@media screen and (max-width:600px) {
+  .column {
+    width: 100%;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>~ ~ ~ ABC BLOG ~ ~ ~</h1>
+  <p>Feel free to share anything you like with others here</p>
+  <p>Connect and share with the people in your life</p>
+</div>
+
+<div class="topnav">
+  <a href="index.html">Home Page</a>
+  <a href="log_in_page.html">Log in / Sign up</a>
+  <a href="new_post_page.html">Create a new blog</a>
+  <a href="search_page.html">Search for a blog</a>
+  <a href="random_page.html">Any random blog</a>
+  <a href="account_page.html">My account</a>
+  <a href="about_us_page.html">About us</a>
+</div>
+
+<div id="welcome_message">
+  <child :text="message"></child>
+</div>
+
+<div class="row">
+  <div class="column">
+    <h2>Account page</h2>
+    <p>Account information will be display here.</p>
+    <p2>Your age is: </p2>
+    <input v-model.number="age" type="number">
+</div>
+
+<form id="demo">
+
+  <p>
+    <p2>Name: </p2>  
+    <input type="text" v-model="msg">
+    {{msg}}
+  </p>
+  
+  <p>
+    <p2>Pasword: </p2>  
+    <input type="text" v-model="msg2">
+    {{msg2}}
+  </p>
+  
+  <p>
+    <p2>Email: </p2>  
+    <input type="text" v-model="msg3">
+    {{msg3}}
+  </p>
+
+</form>
+
+</div>
+-------------------------HTML-------------------------
+
+
+
+
+-------------------------CSS-------------------------
+.header {
+    background-color: #f1f1f1;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .topnav {
+    overflow: hidden;
+    background-color: #333;
+  }
+  
+  .topnav a {
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+  }
+  
+  .topnav a:hover {
+    background-color: #ddd;
+    color: black;
+  }
+  
+  .column {
+    float: left;
+    width: 33.33%;
+    padding: 15px;
+  }
+  
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  
+  body {
+    background-color: lightblue;
+    opacity: 0.9;
+  }
+-------------------------CSS-------------------------
+
+
+
+
+-------------------------Javascript-------------------------
+var x = document.getElementById("demo");
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  } else { 
+    x.innerHTML = "Geolocation is not supported by this browser.";
+  }
+}
+function showPosition(position) {
+  x.innerHTML = "Latitude: " + position.coords.latitude + 
+  "<br>Longitude: " + position.coords.longitude;
+}
+
+Vue.component('child',{
+  props: {
+    text: {
+      type: String,
+      required: true
+    }
+  },
+  template: `<div>{{ text }}</div>`
+});
+
+new Vue({
+  el: '#welcome_message',
+  data() {
+    return {
+      message: 'Welcome to the account page, here is the information of your own account !!!'
+    }
+  }
+})
+
+new Vue({
+  el: '#demo',
+  data: {
+    msg      : 'enter your name here',
+    msg2      : 'enter your password here',
+    msg3      : 'enter your email here',
+    checked  : true,
+    picked   : 'one',
+    selected : 'two',
+    multiSelect: ['one', 'three']
+  }
+})
+-------------------------Javascript-------------------------
+
+https://jsfiddle.net/e5pgmy2s/1/
